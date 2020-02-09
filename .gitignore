@@ -19,8 +19,8 @@ doc/api/
 *.js_
 *.js.deps
 *.js.map
-node_modules
-build
+node_modules/
+build/
 npm-debug.log
 .env
 .DS_Store
