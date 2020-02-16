@@ -1,23 +1,17 @@
-var express = require('express'),
-    app = express(),
-    port = process.env.PORT || 3000;
+const express = require('express');
 
-app.listen(port);
+const app = express();
+const bodyParser = require('body-parser');
 
-console.log('Testando server na porta ' + port);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-const { Pool, Client } = require('pg');
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'flutter',
-    password: 'flavio22',
-    port: 5432,
-});
+var connection = require('./api/db/Conexao');
+const UsuarioController = require('./api/controller/UsuarioController');
 
-pool.query('SELECT * from usuario', (err, res) => {
-    console.log(err, res.rows[0].nome);
-    pool.end();
-})
+let porta = 3000;
+app.listen(porta);
 
+console.log('Iniciando server nodeJS na porta ' + porta);
 
+require('./api/router/UsuarioRoutes')(app);
